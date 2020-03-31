@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": 0,
+      "login": "admin",
+      "password": "admin"
+    },
+    {
+      "id": 1,
+      "login": "q",
+      "password": "q"
+    }
+  ],
+  "userContacts": [
+    {
+      "userId": 0,
+      "id": 0,
+      "fullname": "Tony Stark",
+      "phone": "1234567"
+    }
+  ]
+}

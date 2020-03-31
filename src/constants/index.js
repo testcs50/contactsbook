@@ -1,0 +1,9 @@
+export const SIGN_IN = 'SIGN_IN';
+export const SIGN_UP = 'SIGN_UP';
+export const SIGN_OUT = 'SIGN_OUT';
+export const SIGN_ERROR = 'SIGN_ERROR';
+
+export const GET_CONTACTS = 'GET_CONTACTS';
+export const GET_CONTACTS_PENDING = 'GET_CONTACTS_PENDING';
+export const GET_CONTACTS_REJECTED = 'GET_CONTACTS_REJECTED';
+export const GET_CONTACTS_FULFILLED = 'GET_CONTACTS_FULFILLED';
