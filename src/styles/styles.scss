@@ -74,7 +74,13 @@ body {
         display: flex;
         flex-direction: column;
         height: 70px;
+    }
+
+    &__header.bluesky {
         background-color: #87cceb;
+    }
+    &__header.purple {
+        background-color: rgb(189, 69, 189);
     }
 
     &__actions-bar {
@@ -84,15 +90,12 @@ body {
         padding: 0 1rem;
     }
 
-    &__exit,
-    &__add {
+    &__nav-link {
         color: rgba(0, 0, 0, 0.65);
     }
 
-    &__exit:hover,
-    &__add:hover,
-    &__exit:active,
-    &__add:active {
+    &__nav-link:hover,
+    &__nav-link:hover {
         color: rgba(0, 0, 0, 0.65);
         text-decoration: underline;
     }
@@ -115,4 +118,67 @@ body {
     &__list {
         flex-grow: 1;
     }
+
+    &__block {
+        padding: .5rem 1rem;
+    }
+
+    &__block-title {
+        font-size: .8rem;
+        color: rgba(0, 0, 0, 0.4);
+    }
+
+    &__block-general {
+        font-size: 1rem;
+    }
+}
+
+.contact-preview {
+    display: inline-block;
+    width: 100%;
+    padding: .5rem 1rem 0;
+    color: rgba(0, 0, 0, 0.65);
+
+    &__fullname {
+        font-size: 1.2rem;
+    }
+
+    &__phone {
+        font-size: .8rem;
+    }
+
+    &__searched {
+        background-color: #87cceb;
+    }
+
+    &__hr {
+        border: 0;
+        height: 1px;
+        margin-bottom: 0;
+        background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0));
+        background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0));
+        background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0));
+        background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.3), rgba(0,0,0,0));
+    }
+
+    &:last-child .contact-preview__hr {
+        visibility: hidden;
+    }
+
+    &:hover,
+    &:active {
+        color: rgba(0, 0, 0, 0.65);
+    }
+
+    &:hover .contact-preview__fullname,
+    &:active .contact-preview__fullname {
+        text-decoration: underline;
+    }
+
+}
+
+.no-contacts {
+    padding: 1rem;
+    font-size: 1rem;
+    text-align: center;
 }

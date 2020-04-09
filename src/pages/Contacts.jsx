@@ -3,47 +3,60 @@ import { Link } from 'react-router-dom';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 
 import { Input } from 'antd';
+const { Search } = Input;
 import { LogoutOutlined, PlusCircleOutlined } from '@ant-design/icons';
 
 import signOutAction from '../actions/signOutAction';
 import getContactsAction from '../actions/getContactsAction';
+import searchContactsAction from '../actions/searchContactsAction';
 
 import ContactPreview from '../components/ContactPreview';
 
-const { Search } = Input;
-
 const Contacts = () => {
 
-    const [ inputText, setInputText ] = useState('');
+    const [ inputText, setInputText ] = useState(null);
 
     const currentUserId = useSelector(state => state.currentUser.id, shallowEqual);
     const contacts = useSelector(state => state.userContacts.contacts, shallowEqual);
     const dispatch = useDispatch();
 
-    const contactsList = contacts.map((contact, id) => {
-        return (
-            <Link to="/contact" key={ id }>
-                <ContactPreview fullname={ contact.fullname } phone={ contact.phone } searched={ inputText } />
-            </Link>
-        );
-    });
+    const contactsList = contacts.sort((a, b) => {
+            if (a.fullname < b.fullname) return -1;
+            if (a.fullname > b.fullname) return 1;
+            return 0;
+        })
+        .map(contact => {
+            return (
+                <ContactPreview
+                    key={ contact.id }
+                    id={ contact.id }
+                    fullname={ contact.fullname }
+                    phone={ contact.phone }
+                    searched={ inputText }
+                />
+            );
+        });
+
+    const handleSignOut = () => dispatch(signOutAction());
+    const handleInput = event => setInputText(event.target.value);
 
     useEffect(() => {
         dispatch(getContactsAction(currentUserId));
     }, []);
 
-    const handleSignOut = () => dispatch(signOutAction());
-    const handleInput = event => setInputText(event.target.value);
+    useEffect(() => {
+        inputText !== null && dispatch(searchContactsAction(currentUserId, inputText));
+    }, [ inputText ]);
 
     return (
         <div className="contacts">
-            <div className="contacts__header">
+            <div className="contacts__header bluesky">
                 <div className="contacts__actions-bar">
-                    <Link to="/" className="contacts__exit" onClick={ handleSignOut }>
+                    <Link to="/" className="contacts__nav-link" onClick={ handleSignOut }>
                         <LogoutOutlined rotate={180} />
                         <span> Sign Out</span>
                     </Link>
-                    <div className="contacts__add">
+                    <div className="contacts__nav-link">
                         <span>Add </span>
                         <PlusCircleOutlined />
                     </div>
@@ -54,11 +67,14 @@ const Contacts = () => {
                 <div className="contacts__search-bar">
                     <Search
                         placeholder="input contact's name or phone"
-                        onSearch={value => console.log(value)}
+                        onSearch={ handleInput }
                         onInput={ handleInput }
+                        value={ inputText }
                     />
                 </div>
-                <div className="contacts__list">{ contactsList }</div>
+                <div className="contacts__list">
+                    { contactsList.length ? contactsList : <div className="no-contacts">No contacts!</div> }
+                </div>
             </div>
         </div>
     );
