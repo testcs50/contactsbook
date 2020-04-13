@@ -1,17 +1,19 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 
 import { LeftCircleOutlined, SyncOutlined } from '@ant-design/icons';
 
 import deleteContactAction from '../actions/deleteContactAction';
 
-const Contact = props => {
+const Contact = () => {
 
     const dispatch = useDispatch()
 
+    const { id } = useParams();
+
     const contacts = useSelector(state => state.userContacts.contacts, shallowEqual);
-    const contact = contacts.find(obj => obj.id === Number(props.match.params.id));
+    const contact = contacts.find(obj => obj.id === Number(id));
 
     const handleDeleteContact = () => dispatch(deleteContactAction(contact.id));
 
@@ -23,10 +25,10 @@ const Contact = props => {
                         <LeftCircleOutlined/>
                         <span> Back</span>
                     </Link>
-                    <div className="contacts__nav-link">
+                    <Link to={ `/edit/${id}` } className="contacts__nav-link">
                         <span>Edit </span>
                         <SyncOutlined />
-                    </div>
+                    </Link>
                 </div>
                 <div className="contacts__title">{ contact.fullname }</div>
             </div>
@@ -35,7 +37,7 @@ const Contact = props => {
                     <div className="contacts__block-title">phone:</div>
                     <div className="contacts__block-general">{ contact.phone }</div>
                 </div>
-                <Link to="/contacts" onclick={ handleDeleteContact }>Delete contact</Link>
+                <Link className="contacts__delete-contact" to="/contacts" onClick={ handleDeleteContact }>Delete contact</Link>
             </div>
         </div>
     );

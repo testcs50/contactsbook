@@ -21,8 +21,8 @@ const Contacts = () => {
     const dispatch = useDispatch();
 
     const contactsList = contacts.sort((a, b) => {
-            if (a.fullname < b.fullname) return -1;
-            if (a.fullname > b.fullname) return 1;
+            if (a.fullname.toLowerCase() < b.fullname.toLowerCase()) return -1;
+            if (a.fullname.toLowerCase() > b.fullname.toLowerCase()) return 1;
             return 0;
         })
         .map(contact => {
@@ -56,10 +56,10 @@ const Contacts = () => {
                         <LogoutOutlined rotate={180} />
                         <span> Sign Out</span>
                     </Link>
-                    <div className="contacts__nav-link">
+                    <Link to="/add" className="contacts__nav-link">
                         <span>Add </span>
                         <PlusCircleOutlined />
-                    </div>
+                    </Link>
                 </div>
                 <div className="contacts__title">Contacts</div>
             </div>

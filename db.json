@@ -20,15 +20,9 @@
     },
     {
       "userId": 0,
-      "id": 1,
-      "fullname": "George Washington",
-      "phone": "7777777"
-    },
-    {
-      "userId": 0,
-      "id": 2,
-      "fullname": "Che Gevara",
-      "phone": "888"
+      "fullname": "George Washingtonner",
+      "phone": "7777777",
+      "id": 1
     }
   ]
 }
